@@ -555,6 +555,42 @@
   font-size: 15px;
 }
 
+@media (max-width: 800px) {
+  .rdw-editor-toolbar {
+    position: relative;
+  }
+  .rdw-colorpicker-wrapper {
+    position: static !important;
+  }
+  .rdw-colorpicker-wrapper .rdw-colorpicker-modal {
+    top: calc(100% + 5px);
+  }
+  .rdw-link-wrapper {
+    position: static !important;
+  }
+  .rdw-link-wrapper .rdw-link-modal {
+    top: calc(100% + 5px);
+  }
+  .rdw-embedded-wrapper {
+    position: static !important;
+  }
+  .rdw-embedded-wrapper .rdw-embedded-modal {
+    top: calc(100% + 5px);
+  }
+  .rdw-emoji-wrapper {
+    position: static !important;
+  }
+  .rdw-emoji-wrapper .rdw-emoji-modal {
+    top: calc(100% + 5px);
+  }
+  .rdw-image-wrapper {
+    position: static !important;
+  }
+  .rdw-image-wrapper .rdw-image-modal {
+    top: calc(100% + 5px);
+  }
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;

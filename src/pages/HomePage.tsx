@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
@@ -11,6 +11,10 @@ const HomePage: React.FC<{}> = () => {
   const { currentUser } = useContext(UserContext);
 
   const { loading, results, lastItemRef, end } = useObserver(getAllPosts);
+
+  useEffect(() => {
+    document.title = "Home | Whatsblog";
+  }, []);
 
   return (
     <Container className="pt-3">

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { signUpUser } from "../customFunc/asyncRequests/authRequests";
 import useAlert from "../customHook/useAlert";
 import {
@@ -79,6 +79,10 @@ const SignUpPage: React.FC<{}> = () => {
         console.error(err);
       });
   };
+
+  useEffect(() => {
+    document.title = "Sign up | Whatsblog";
+  }, []);
 
   return (
     <section id="sign-up-form">

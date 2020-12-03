@@ -17,7 +17,9 @@ const EditableReply: React.FC<{
     }>
   >;
   setCurrentReplyCounts: React.Dispatch<React.SetStateAction<string | number>>;
-  setCurrentCommentCounts: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentCommentCounts: React.Dispatch<
+    React.SetStateAction<string | number>
+  >;
 }> = ({
   post_id,
   reply_to,

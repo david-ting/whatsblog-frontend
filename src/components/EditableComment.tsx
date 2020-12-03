@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { convertToRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Button, Spinner } from "react-bootstrap";
 import { addComment } from "../customFunc/asyncRequests/blogPostRequest";
 import { UserContext } from "../customContext/UserContextProvider";

@@ -13,6 +13,7 @@ $media-breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
 @import "./userSetting";
 @import "./userProfile";
 @import "./comment";
+@import "./editor";
 
 * {
   box-sizing: border-box;

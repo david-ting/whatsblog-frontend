@@ -14,6 +14,10 @@ const AuthorProfilePage: React.FC<{}> = () => {
   const { user_id } = useParams<{ user_id: string }>();
 
   useEffect(() => {
+    if (user.name) document.title = `${user.name} | author | Whatsblog`;
+  }, [user]);
+
+  useEffect(() => {
     getAuthorProfile(parseInt(user_id))
       .then((res) => {
         if (res.status === 200) {

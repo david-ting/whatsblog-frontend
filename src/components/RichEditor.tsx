@@ -1,7 +1,6 @@
 import React from "react";
 import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { uploadImageToServer } from "../customFunc/asyncRequests/otherRequests";
 
 const RichEditor: React.FC<{
@@ -30,7 +29,9 @@ const RichEditor: React.FC<{
       toolbarClassName="toolbarClassName"
       editorClassName="editor-wrapper"
       onEditorStateChange={(newEditorState) => setEditorState(newEditorState)}
-      toolbar={{ image: { uploadCallback: uploadImageCallBack } }}
+      toolbar={{
+        image: { uploadCallback: uploadImageCallBack },
+      }}
     />
   );
 };

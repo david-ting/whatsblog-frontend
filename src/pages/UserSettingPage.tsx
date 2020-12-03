@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import ChangePassword from "../components/ChangePassword";
 import ChangeProfile from "../components/ChangeProfile";
@@ -6,6 +6,11 @@ import { UserContext } from "../customContext/UserContextProvider";
 
 const UserSettingPage: React.FC<{}> = () => {
   const { currentUser } = useContext(UserContext);
+
+  useEffect(() => {
+    document.title = "User Setting | Whatsblog";
+  }, []);
+
   return currentUser.loggedIn ? (
     <section id="user-setting-container">
       <Container>

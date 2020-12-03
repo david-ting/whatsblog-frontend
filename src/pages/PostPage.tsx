@@ -27,7 +27,9 @@ const PostPage: React.FC<{}> = () => {
     loading: boolean;
   }>({ data: { comments: [], commentCounts: 0 }, loading: true });
 
-  const [currentCommentCounts, setCurrentCommentCounts] = useState(0);
+  const [currentCommentCounts, setCurrentCommentCounts] = useState<
+    number | string
+  >(0);
 
   useEffect(() => {
     getPost(parseInt(post_id))
@@ -62,6 +64,11 @@ const PostPage: React.FC<{}> = () => {
     setCurrentCommentCounts(comments.data.commentCounts);
   }, [comments]);
 
+  useEffect(() => {
+    if (post.data.post && post.data.post.title)
+      document.title = `${post.data.post.title} | Post | Whatsblog`;
+  }, [post]);
+
   return (
     <section id="full-post-container">
       <Container className="my-5">
@@ -92,7 +99,15 @@ const PostPage: React.FC<{}> = () => {
               />
             )}
 
-            <div className="pl-2 pt-2">
+            <div
+              className="pl-2 pt-2"
+              style={{
+                paddingBottom:
+                  currentCommentCounts === 0 || currentCommentCounts === "0"
+                    ? "100px"
+                    : "0px",
+              }}
+            >
               <FaRegComment
                 size={"1.2rem"}
                 fill={"gray"}

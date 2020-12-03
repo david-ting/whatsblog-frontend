@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "draft-js/dist/Draft.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./styling/index.css";
 import {
   BrowserRouter as Router,

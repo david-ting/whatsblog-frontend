@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import NewPost from "../components/NewPost";
@@ -6,6 +6,10 @@ import PreviousPosts from "../components/PreviousPosts";
 
 const UserPage: React.FC<{}> = () => {
   const pathname = useLocation().pathname;
+
+  useEffect(() => {
+    document.title = "Manage Posts | Whatsblog";
+  }, []);
 
   return (
     <section className="new-post-container py-5">

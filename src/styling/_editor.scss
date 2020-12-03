@@ -1,0 +1,40 @@
+@media (max-width: 800px) {
+  .rdw-editor-toolbar {
+    position: relative;
+  }
+
+  .rdw-colorpicker-wrapper {
+    position: static !important;
+    .rdw-colorpicker-modal {
+      top: calc(100% + 5px);
+    }
+  }
+
+  .rdw-link-wrapper {
+    position: static !important;
+    .rdw-link-modal {
+      top: calc(100% + 5px);
+    }
+  }
+
+  .rdw-embedded-wrapper {
+    position: static !important;
+    .rdw-embedded-modal {
+      top: calc(100% + 5px);
+    }
+  }
+
+  .rdw-emoji-wrapper {
+    position: static !important;
+    .rdw-emoji-modal {
+      top: calc(100% + 5px);
+    }
+  }
+
+  .rdw-image-wrapper {
+    position: static !important;
+    .rdw-image-modal {
+      top: calc(100% + 5px);
+    }
+  }
+}

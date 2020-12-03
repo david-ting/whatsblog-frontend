@@ -13,7 +13,9 @@ import { Link } from "react-router-dom";
 
 const ReadOnlyComment: React.FC<{
   data: { [keys: string]: any };
-  setCurrentCommentCounts: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentCommentCounts: React.Dispatch<
+    React.SetStateAction<string | number>
+  >;
 }> = ({ data, setCurrentCommentCounts }) => {
   const { currentUser } = useContext(UserContext);
   const [replies, setReplies] = useState<{

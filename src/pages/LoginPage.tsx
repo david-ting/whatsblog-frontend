@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -31,7 +31,6 @@ const LoginPage: React.FC<{}> = () => {
     loginUser(key, identity, password)
       .then((res) => {
         setShowSpinner(false);
-        console.log(res);
         if (res.status === 200) {
           dispatchCurrentUser({
             type: "LOG-IN",
@@ -54,6 +53,10 @@ const LoginPage: React.FC<{}> = () => {
         console.error(err);
       });
   };
+
+  useEffect(() => {
+    document.title = "Login | Whatsblog";
+  }, []);
 
   return (
     <section id="login-form">
