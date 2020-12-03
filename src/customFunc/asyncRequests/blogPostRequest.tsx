@@ -111,7 +111,6 @@ export const getAllPosts = (page: number) => {
   const itemsPerPage = 3;
 
   const path = `${HOST_URL}/post/getAll/${itemsPerPage}/${page}`;
-  console.log(path);
   const options: RequestInit = {
     method: "GET",
     credentials: "include",
