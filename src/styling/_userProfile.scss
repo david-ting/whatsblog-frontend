@@ -1,0 +1,35 @@
+#user-profile-container {
+  background-color: $paleBlue;
+  min-height: calc(100vh - 55px);
+  padding: 25px 0;
+  > div:first-child {
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    * {
+      margin-bottom: 10px;
+    }
+    h3 {
+      text-align: center;
+    }
+  }
+}
+
+#user-profile-top {
+  > div {
+    display: flex;
+    align-items: center;
+  }
+  b {
+    margin-left: 20px;
+  }
+  i {
+    color: #757575;
+  }
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid #e0dddd;
+  }
+}

@@ -1,0 +1,25 @@
+.editor-wrapper {
+  border: 1px solid $paleBlue;
+  border-radius: 5px;
+  min-height: 300px;
+  padding: 1rem;
+}
+
+.blog-preview-image {
+  width: 100%;
+}
+
+.rdw-image-imagewrapper {
+  img {
+    max-width: 100%;
+  }
+}
+.new-post-container {
+  background-color: rgb(241, 245, 250);
+  min-height: calc(100vh - 49px);
+  > div:first-child {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+}

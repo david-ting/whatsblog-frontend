@@ -1,0 +1,65 @@
+.comment-wrapper {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 3px $lighterThemeBlue;
+
+  .comment-toolbar {
+    order: 2;
+    .rdw-dropdown-optionwrapper {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  .comment-main {
+    order: 1;
+    border: 1px solid #f3f5f6;
+    min-height: 50px;
+    .public-DraftStyleDefault-block {
+      margin: 8px !important;
+    }
+  }
+}
+
+.editable-comment-container {
+  .editable-comment-top {
+    padding: 5px;
+    img {
+      border-radius: 50%;
+      width: 40px;
+    }
+  }
+  // .editable-comment-bottom {
+  //   box-shadow: 1px 1px 3px $lighterThemeBlue;
+  // }
+}
+
+.read-only-comment-wrapper {
+  border: 1px solid #f3f5f6;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 50px auto;
+  .rdw-editor-wrapper {
+    flex: 1 1 calc(100% - 40px);
+    .public-DraftEditor-content {
+      display: flex;
+      align-items: center;
+      .public-DraftStyleDefault-block {
+        margin: 0;
+      }
+    }
+  }
+  .read-only-comment-left {
+    padding: 5px;
+    img {
+      border-radius: 50%;
+      width: 100%;
+    }
+  }
+  .read-only-comment-right {
+    padding-left: 10px;
+    > i:first-child {
+      color: gray;
+      font-size: 15px;
+    }
+  }
+}
