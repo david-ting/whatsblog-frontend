@@ -85,6 +85,11 @@ const EditableComment: React.FC<{
       >
         {submitting && <div className="overlay"></div>}
         <Editor
+          //@ts-ignore
+          autoCapitalize="none"
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck={false}
           toolbarHidden={!focus}
           editorState={editorState}
           wrapperClassName="comment-wrapper"
