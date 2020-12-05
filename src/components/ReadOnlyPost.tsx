@@ -1,7 +1,6 @@
-import { Editor } from "react-draft-wysiwyg";
 import { localeDateString } from "../customFunc/helperFunc";
 import React from "react";
-import { EditorState, convertFromRaw } from "draft-js";
+import ReactQuill from "react-quill";
 import DefaultProfileIcon from "./DefaultProfileIcon";
 import { Link } from "react-router-dom";
 
@@ -11,9 +10,6 @@ const ReadOnlyPost: React.FC<{
   };
 }> = ({ postData }) => {
   const { post, author } = postData;
-  const editorState = EditorState.createWithContent(
-    convertFromRaw(post.content)
-  );
   const { created_at } = post;
   return (
     <>
@@ -58,14 +54,11 @@ const ReadOnlyPost: React.FC<{
             <i>{post.description}</i>
           </p>
         </div>
-        <Editor
-          readOnly
-          toolbarHidden
-          editorState={editorState}
-          toolbarClassName="toolbarClassName"
-          wrapperClassName="wrapperClassName"
-          editorClassName="editorClassName"
-        />
+        <ReactQuill
+          value={post.content}
+          readOnly={true}
+          modules={{ toolbar: false }}
+        ></ReactQuill>
       </div>
     </>
   );

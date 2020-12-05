@@ -1,5 +1,4 @@
-import { convertToRaw, EditorState } from "draft-js";
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import { useHistory } from "react-router-dom";
 import { addPost } from "../customFunc/asyncRequests/blogPostRequest";
 import {
@@ -14,10 +13,11 @@ import {
   Spinner,
   Alert,
 } from "react-bootstrap";
-import RichEditor from "./RichEditor";
 import ImageModal from "../components/ImageModal";
 import useAlert from "../customHook/useAlert";
 import { blogTypes } from "../constants";
+import QuillEditor from "./EditablePost";
+import ReactQuill from "react-quill";
 
 const NewPost: React.FC<{}> = () => {
   const [showSpinner, setShowSpinner] = useState(false);
@@ -26,38 +26,41 @@ const NewPost: React.FC<{}> = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [blogType, setBlogType] = useState("Others");
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const history = useHistory();
   const { showAlert, dispatchShowAlert } = useAlert();
+  const quillRef = createRef<ReactQuill>();
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const contentState = editorState.getCurrentContent();
-    const rawContent = convertToRaw(contentState);
-    setShowSpinner(true);
-    addPost({
-      title,
-      description,
-      headerImageData: croppedPicDataURL,
-      blog_type: blogType,
-      content: rawContent,
-    })
-      .then((res) => {
-        setShowSpinner(false);
-        if (res.status === 200) history.push(`/post/${res.data.post_id}`);
-        else {
-          throw new Error(res.data.message);
-        }
+    console.log(quillRef.current);
+    if (quillRef.current) {
+      const content = quillRef.current.getEditor().getContents();
+      console.log(content)
+      setShowSpinner(true);
+      addPost({
+        title,
+        description,
+        headerImageData: croppedPicDataURL,
+        blog_type: blogType,
+        content,
       })
-      .catch((err) => {
-        setShowSpinner(false);
-        dispatchShowAlert({
-          type: "SHOW",
-          variant: "danger",
-          content: "something went wrong",
+        .then((res) => {
+          setShowSpinner(false);
+          if (res.status === 200) history.push(`/post/${res.data.post_id}`);
+          else {
+            throw new Error(res.data.message);
+          }
+        })
+        .catch((err) => {
+          setShowSpinner(false);
+          dispatchShowAlert({
+            type: "SHOW",
+            variant: "danger",
+            content: "something went wrong",
+          });
+          console.error(err);
         });
-        console.error(err);
-      });
+    }
   };
   return (
     <section className="overlay-spinner-wrapper">
@@ -151,7 +154,7 @@ const NewPost: React.FC<{}> = () => {
           </Col>
         </Form.Row>
         <h5 className="mt-3">Body</h5>
-        <RichEditor editorState={editorState} setEditorState={setEditorState} />
+        <QuillEditor quillRef={quillRef}/>
         <Button className="themeColor-btn mt-3" type="submit">
           Submit
         </Button>

@@ -10,6 +10,7 @@ import ReadOnlyReply from "./ReadOnlyReply";
 import { UserContext } from "../customContext/UserContextProvider";
 import { Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ReactQuill from "react-quill";
 
 const ReadOnlyComment: React.FC<{
   data: { [keys: string]: any };
@@ -24,9 +25,6 @@ const ReadOnlyComment: React.FC<{
     commentCounts: number;
   }>({ replies: [], replyCounts: 0, commentCounts: 0 });
   const { comment, commenter } = data;
-  const editorState = EditorState.createWithContent(
-    convertFromRaw(comment.content)
-  );
   const [replyIsShow, setReplyIsShow] = useState(false);
   const [currentReplyCounts, setCurrentReplyCounts] = useState<number | string>(
     0
@@ -75,7 +73,11 @@ const ReadOnlyComment: React.FC<{
           <b>{commenter.name}</b>
         </Link>
         <i> {localeDateString(comment.created_at)}</i>
-        <Editor readOnly toolbarHidden editorState={editorState} />
+        <ReactQuill
+          value={comment.content}
+          readOnly={true}
+          modules={{ toolbar: false }}
+        ></ReactQuill>
         <div className="mt-3 mb-2">
           {currentUser.loggedIn && (
             <EditableReply

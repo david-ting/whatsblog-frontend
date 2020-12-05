@@ -1,10 +1,31 @@
-import React, { useState, useContext } from "react";
-import { convertToRaw, EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+import React, { useState, useContext, useRef } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { addComment } from "../customFunc/asyncRequests/blogPostRequest";
 import { UserContext } from "../customContext/UserContextProvider";
 import DefaultProfileIcon from "./DefaultProfileIcon";
+import ReactQuill from "react-quill";
+
+const modules = {
+  toolbar: {
+    container: [
+      [{ color: [] }, { background: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link"],
+    ],
+  },
+};
+
+const formats = [
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "link",
+];
 
 const EditableComment: React.FC<{
   post_id: number;
@@ -21,26 +42,29 @@ const EditableComment: React.FC<{
   >;
 }> = ({ post_id, setComments }) => {
   const { currentUser } = useContext(UserContext);
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [content, setContent] = useState("");
   const [focus, setFocus] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const quillRef = useRef<ReactQuill>(null);
 
   const submitComment = () => {
-    const content = convertToRaw(editorState.getCurrentContent());
-    setSubmitting(true);
-    addComment(post_id, content)
-      .then((res) => {
-        if (res.status === 200) {
-          setSubmitting(false);
-          setComments({ data: res.data, loading: false });
-          setEditorState(EditorState.createEmpty());
-        } else {
-          console.error(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (quillRef.current) {
+      const submittedContent = quillRef.current.getEditor().getContents();
+      setSubmitting(true);
+      addComment(post_id, submittedContent)
+        .then((res) => {
+          if (res.status === 200) {
+            setSubmitting(false);
+            setComments({ data: res.data, loading: false });
+            setContent("");
+          } else {
+            console.error(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   };
   return !currentUser.loggedIn ? (
     <></>
@@ -69,7 +93,7 @@ const EditableComment: React.FC<{
             className="btn-secondary p-1 ml-2 mb-2"
             onClick={() => {
               setFocus(false);
-              setEditorState(EditorState.createEmpty());
+              setContent("");
             }}
           >
             Cancel
@@ -84,33 +108,14 @@ const EditableComment: React.FC<{
         }}
       >
         {submitting && <div className="overlay"></div>}
-        <Editor
-          //@ts-ignore
-          autoCapitalize="none"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck={false}
-          toolbarHidden={!focus}
-          editorState={editorState}
-          wrapperClassName="comment-wrapper"
-          toolbarClassName="comment-toolbar"
-          editorClassName="comment-main"
-          onEditorStateChange={(newEditorState) =>
-            setEditorState(newEditorState)
-          }
-          toolbar={{
-            options: ["inline", "emoji"],
-            inline: {
-              options: [
-                "bold",
-                "italic",
-                "underline",
-                "strikethrough",
-                "monospace",
-              ],
-            },
-          }}
-        />
+        <ReactQuill
+          ref={quillRef}
+          theme="snow"
+          value={content}
+          modules={modules}
+          formats={formats}
+          onChange={(value) => setContent(value)}
+        ></ReactQuill>
       </div>
     </section>
   );
