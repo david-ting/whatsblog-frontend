@@ -48,7 +48,6 @@ const PostPage: React.FC<{}> = () => {
   useEffect(() => {
     getComment(parseInt(post_id))
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setComments({ data: res.data, loading: false });
         } else {
@@ -70,7 +69,7 @@ const PostPage: React.FC<{}> = () => {
   }, [post]);
 
   return (
-    <section id="full-post-container">
+    <section>
       <Container className="my-5">
         {(post.loading || comments.loading) && (
           <div className="spinner-wrapper">

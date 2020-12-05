@@ -16,27 +16,34 @@ const PreviewPost: React.FC<{
 
   return (
     <article className="preview-post-container">
-      {showAuthor && author && (
+      {
         <div className="preview-post-top">
-          {author.profile_url ? (
-            <img
-              alt="profile"
-              src={author.profile_url}
-              width="25px"
-              height="25px"
-              style={{
-                borderRadius: "50%",
-                border: "1px solid #F5F5F5",
-              }}
-            ></img>
-          ) : (
-            <DefaultProfileIcon name={author.name} size={20} />
+          {showAuthor && author && (
+            <>
+              {author.profile_url ? (
+                <img
+                  alt="profile"
+                  src={author.profile_url}
+                  width="25px"
+                  height="25px"
+                  style={{
+                    borderRadius: "50%",
+                    border: "1px solid #F5F5F5",
+                  }}
+                ></img>
+              ) : (
+                <DefaultProfileIcon name={author.name} size={20} />
+              )}
+              <Link
+                to={`/author/profile/${author.user_id}`}
+                className="black-link"
+              >
+                {author.name}
+              </Link>
+            </>
           )}
-          <Link to={`/author/profile/${author.user_id}`} className="black-link">
-            {author.name}
-          </Link>
         </div>
-      )}
+      }
       <h5 className="preview-post-title">
         <Link className="black-link" to={`/post/${post.post_id}`}>
           {post.title}

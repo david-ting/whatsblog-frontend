@@ -1,6 +1,7 @@
 $lighterThemeBlue: rgb(69, 124, 243);
 $themeBlue: rgb(54, 89, 166);
-$paleBlue: rgb(243, 245, 246);
+$paleBlue: rgb(241, 245, 250);
+$paleGray: #f3f5f6;
 $media-breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
 
 @import "./newPost";
@@ -13,7 +14,6 @@ $media-breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
 @import "./userSetting";
 @import "./userProfile";
 @import "./comment";
-@import "./editor";
 
 * {
   box-sizing: border-box;
@@ -25,6 +25,18 @@ $media-breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
   &:hover {
     background-color: $themeBlue;
   }
+}
+
+.blue-line-btn {
+  border: none;
+  background: none;
+  color: $lighterThemeBlue;
+}
+
+.gray-line-btn {
+  border: none;
+  background: none;
+  color: gray;
 }
 
 .themeColor-outline-btn {
@@ -92,7 +104,7 @@ $media-breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
 
 #prompt {
   text-align: center;
-  background-color: rgb(241, 245, 250);
+  background-color: $paleBlue;
   margin: 16px 0;
   padding: 5px;
 }
@@ -149,6 +161,6 @@ $media-breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
   }
 }
 
-.rdw-editor-main {
-  word-break: break-word;
+.ql-container {
+  font-size: 1rem;
 }

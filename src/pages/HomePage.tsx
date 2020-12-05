@@ -18,7 +18,7 @@ const HomePage: React.FC<{}> = () => {
 
   return (
     <Container className="pt-3">
-      <section>
+      <section className="mt-3">
         {!currentUser.loggedIn && (
           <aside id="prompt">
             Want to create your own posts or interact with the community?

@@ -1,25 +1,47 @@
-.editor-wrapper {
-  border: 1px solid $paleBlue;
+.read-only-post-wrapper {
+  border: 1px solid $paleGray;
   border-radius: 5px;
   min-height: 300px;
   padding: 1rem;
+  .header-image {
+    max-width: #{"min(100%, 650px)"};
+  }
+  .ql-editor {
+    padding: 0;
+  }
+  .ql-container.ql-snow {
+    border: 0px;
+  }
 }
 
 .blog-preview-image {
   width: 100%;
 }
 
-.rdw-image-imagewrapper {
-  img {
-    max-width: 100%;
-  }
-}
 .new-post-container {
-  background-color: rgb(241, 245, 250);
+  background-color: $paleBlue;
   min-height: calc(100vh - 49px);
   > div:first-child {
     background-color: #ffffff;
     padding: 1rem;
     border-radius: 5px;
+  }
+  .ql-toolbar.ql-snow {
+    border: 1px solid #ced4da;
+    border-radius: 5px 5px 0 0;
+  }
+  .ql-container.ql-snow {
+    min-height: 300px;
+    border: 1px solid #ced4da;
+    border-radius: 0 0 5px 5px;
+  }
+  .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    @media (max-width: 450px) {
+      left: none;
+      right: 0;
+    }
+    @media (max-width: 342px) {
+      left: 0;
+    }
   }
 }

@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // ES6
 import { uploadImageToServer } from "../customFunc/asyncRequests/otherRequests";
 import loadingGif from "../gif/loading.gif";
 
@@ -45,9 +44,8 @@ const EditablePost: React.FC<{ quillRef: React.RefObject<ReactQuill> }> = ({
     () => ({
       toolbar: {
         container: [
-          [{ font: [] }],
+          [{ size: [] }, { font: [] }],
           [{ color: [] }, { background: [] }],
-          [{ header: [1, 2, false] }],
           ["bold", "italic", "underline", "strike", "blockquote"],
           [
             { list: "ordered" },
@@ -67,7 +65,10 @@ const EditablePost: React.FC<{ quillRef: React.RefObject<ReactQuill> }> = ({
   );
 
   const formats = [
-    "header",
+    "size",
+    "font",
+    "color",
+    "background",
     "bold",
     "italic",
     "underline",

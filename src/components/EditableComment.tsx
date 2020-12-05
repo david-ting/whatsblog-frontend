@@ -25,6 +25,8 @@ const formats = [
   "list",
   "bullet",
   "link",
+  "color",
+  "background",
 ];
 
 const EditableComment: React.FC<{
@@ -101,9 +103,9 @@ const EditableComment: React.FC<{
         )}
       </div>
       <div
-        className="editable-comment-bottom overlay-container"
+        className="editable-comment overlay-container"
         tabIndex={-1}
-        onFocus={() => {
+        onClick={(event) => {
           setFocus(true);
         }}
       >
@@ -112,7 +114,7 @@ const EditableComment: React.FC<{
           ref={quillRef}
           theme="snow"
           value={content}
-          modules={modules}
+          modules={focus ? modules : { toolbar: false }}
           formats={formats}
           onChange={(value) => setContent(value)}
         ></ReactQuill>

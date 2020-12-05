@@ -40,14 +40,14 @@ const ReadOnlyPost: React.FC<{
           </>
         )}
       </div>
-      <div className="editor-wrapper">
+      <div className="read-only-post-wrapper">
         <h3 className="text-center">{post.title}</h3>
         <div className="text-center">
           {post.header_image_url && (
             <img
+              className="header-image"
               src={post.header_image_url}
               alt="post_header"
-              style={{ maxWidth: "100%" }}
             />
           )}
           <p>

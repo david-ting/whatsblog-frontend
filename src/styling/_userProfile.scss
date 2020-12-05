@@ -6,12 +6,15 @@
     padding: 20px;
     background-color: white;
     border-radius: 5px;
-    * {
-      margin-bottom: 10px;
+  }
+  #user-profile-top {
+    i {
+      margin-top: 10px;
+      display: block;
     }
-    h3 {
-      text-align: center;
-    }
+  }
+  .preview-post-container:nth-of-type(1) {
+    margin-top: 20px;
   }
 }
 

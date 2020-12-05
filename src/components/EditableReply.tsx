@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { addReply } from "../customFunc/asyncRequests/blogPostRequest";
 import ReactQuill from "react-quill";
 
@@ -23,6 +23,8 @@ const formats = [
   "list",
   "bullet",
   "link",
+  "color",
+  "background",
 ];
 
 const EditableReply: React.FC<{
@@ -79,32 +81,29 @@ const EditableReply: React.FC<{
     <>
       <div className="mb-1">
         {!reply && (
-          <Button
-            className="themeColor-outline-btn"
-            style={{ padding: "2px" }}
+          <button
+            className="blue-line-btn"
             onClick={() => {
               setReply(true);
             }}
           >
             reply
-          </Button>
+          </button>
         )}
         {reply && (
-          <Button
-            className="themeColor-outline-btn"
-            style={{ padding: "2px" }}
+          <button
+            className="blue-line-btn"
             onClick={submitting ? () => {} : submitReply}
           >
             {submitting ? "Submiting" : "Submit"}
             {submitting && (
               <Spinner className="ml-2" animation="grow" size="sm" />
             )}
-          </Button>
+          </button>
         )}
         {reply && !submitting && (
           <button
-            className="btn btn-outline-secondary ml-2"
-            style={{ padding: "2px" }}
+            className="gray-line-btn"
             onClick={() => {
               setReply(false);
               setContent("");
@@ -115,7 +114,7 @@ const EditableReply: React.FC<{
         )}
       </div>
       {reply && (
-        <div className="overlay-container">
+        <div className="editable-comment overlay-container">
           {submitting && <div className="overlay"></div>}
           <ReactQuill
             ref={quillRef}

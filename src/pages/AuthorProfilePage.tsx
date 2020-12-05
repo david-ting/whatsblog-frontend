@@ -21,7 +21,6 @@ const AuthorProfilePage: React.FC<{}> = () => {
     getAuthorProfile(parseInt(user_id))
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
           setUser(res.data.user);
           setPosts({ data: res.data.posts, loading: false });
         } else {
@@ -56,7 +55,7 @@ const AuthorProfilePage: React.FC<{}> = () => {
           </div>
         )}
         {!posts.loading && (
-          <div>
+          <>
             {posts.data.length === 0 ? (
               <h3>the user has not created any posts yet.</h3>
             ) : (
@@ -68,7 +67,7 @@ const AuthorProfilePage: React.FC<{}> = () => {
                 ></PreviewPost>
               ))
             )}
-          </div>
+          </>
         )}
       </Container>
     </section>

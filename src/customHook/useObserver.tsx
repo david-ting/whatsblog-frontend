@@ -36,8 +36,12 @@ const useObserver = (
 
   useEffect(() => {
     setLoading(true);
+    let mounted = true;
     getItems(page)
       .then((res) => {
+        if (!mounted) {
+          return;
+        }
         if (res.status === 200) {
           setLoading(false);
           setItems((prevItems) => ({
@@ -51,6 +55,9 @@ const useObserver = (
       .catch((err) => {
         console.error(err);
       });
+    return () => {
+      mounted = false;
+    };
   }, [getItems, page]);
 
   return { loading, results: items.results, lastItemRef, end };
