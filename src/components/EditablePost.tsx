@@ -2,18 +2,16 @@ import React, { useState, useMemo, useCallback } from "react";
 import ReactQuill from "react-quill";
 import { uploadImageToServer } from "../customFunc/asyncRequests/otherRequests";
 import loadingGif from "../gif/loading.gif";
+import { Alert } from "react-bootstrap";
+import useAlert from "../customHook/useAlert";
 
 const EditablePost: React.FC<{ quillRef: React.RefObject<ReactQuill> }> = ({
   quillRef,
 }) => {
   const [content, setContent] = useState("");
+  const { showAlert, dispatchShowAlert } = useAlert();
 
   const imageHandler = useCallback(() => {
-    if (quillRef?.current?.getEditor().getContents()) {
-      const delta = quillRef?.current?.getEditor().getContents();
-      console.log(JSON.stringify(delta));
-    }
-
     const input = document.createElement("input");
 
     input.setAttribute("type", "file");
@@ -24,6 +22,25 @@ const EditablePost: React.FC<{ quillRef: React.RefObject<ReactQuill> }> = ({
       try {
         if (input.files && input.files[0] && quillRef && quillRef.current) {
           const file = input.files[0];
+
+          if (!/^image\//.test(file.type)) {
+            dispatchShowAlert({
+              type: "SHOW",
+              variant: "danger",
+              content: "only image file is allowed",
+            });
+            return;
+          }
+
+          if (file.size > 2097152) {
+            dispatchShowAlert({
+              type: "SHOW",
+              variant: "danger",
+              content:
+                "file size is too large. please upload an image with size less than or equal to 2MB",
+            });
+            return;
+          }
 
           const quill = quillRef.current.getEditor();
           const range = quill.getSelection(true);
@@ -82,14 +99,24 @@ const EditablePost: React.FC<{ quillRef: React.RefObject<ReactQuill> }> = ({
   ];
 
   return (
-    <ReactQuill
-      ref={quillRef}
-      theme="snow"
-      value={content}
-      modules={modules}
-      formats={formats}
-      onChange={(value) => setContent(value)}
-    ></ReactQuill>
+    <>
+      <Alert
+        show={showAlert.show}
+        variant={showAlert.variant}
+        onClose={() => dispatchShowAlert({ type: "HIDE" })}
+        dismissible
+      >
+        {showAlert.content}
+      </Alert>
+      <ReactQuill
+        ref={quillRef}
+        theme="snow"
+        value={content}
+        modules={modules}
+        formats={formats}
+        onChange={(value) => setContent(value)}
+      ></ReactQuill>
+    </>
   );
 };
 

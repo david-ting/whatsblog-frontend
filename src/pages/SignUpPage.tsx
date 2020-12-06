@@ -67,6 +67,10 @@ const SignUpPage: React.FC<{}> = () => {
               profile_url: res.data.user.profile_url,
             },
           });
+          localStorage.setItem("loggedIn", "true");
+          localStorage.setItem("name", res.data.name);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("profile_url", res.data.profile_url);
         } else {
           dispatchShowAlert({
             type: "SHOW",

@@ -37,6 +37,7 @@ const ChangeProfile: React.FC<{}> = () => {
               variant: "success",
               content: "profile picture updated successfully",
             });
+            localStorage.setItem("profile_url", res.data.profile_url);
           } else {
             throw new Error(res.data.message);
           }

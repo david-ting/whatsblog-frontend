@@ -1,8 +1,9 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Alert, Button, Modal } from "react-bootstrap";
 import ReactCrop, { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { convertImageToBase64 } from "../customFunc/helperFunc";
+import useAlert from "../customHook/useAlert";
 
 const pixelRatio = window.devicePixelRatio || 1;
 
@@ -24,8 +25,14 @@ const ImageModal: React.FC<{
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const [crop, setCrop] = useState<Crop>(initialCrop);
   const [completedCrop, setCompletedCrop] = useState<Crop | null>(null);
-
   const [uploadedPicDataURL, setUploadedPicDataURL] = useState("");
+  const { showAlert, dispatchShowAlert } = useAlert();
+  const inputRef = useCallback(
+    (node) => {
+      if (node && uploadedPicDataURL === "") node.click();
+    },
+    [uploadedPicDataURL]
+  );
 
   const saveCanvasHandler = () => {
     if (previewCanvasRef && previewCanvasRef.current) {
@@ -33,8 +40,31 @@ const ImageModal: React.FC<{
     }
   };
 
+  // upload locally as base64 string
   const uploadImageHandler = async (event: any) => {
     const file = event.target.files[0];
+    if (file === undefined) {
+      return;
+    }
+
+    if (!/^image\//.test(file.type)) {
+      dispatchShowAlert({
+        type: "SHOW",
+        variant: "danger",
+        content: "only image file is allowed",
+      });
+      return;
+    }
+
+    if (file.size > 2097152) {
+      dispatchShowAlert({
+        type: "SHOW",
+        variant: "danger",
+        content:
+          "file size is too large. please upload an image with size less than or equal to 2MB",
+      });
+      return;
+    }
     try {
       const dataURL = await convertImageToBase64(file);
       setUploadedPicDataURL(dataURL as string);
@@ -91,6 +121,14 @@ const ImageModal: React.FC<{
     <Modal show={show} onHide={closeHandler}>
       <Modal.Body>
         <h4>Upload and Crop the Image</h4>
+        <Alert
+          show={showAlert.show}
+          variant={showAlert.variant}
+          onClose={() => dispatchShowAlert({ type: "HIDE" })}
+          dismissible
+        >
+          {showAlert.content}
+        </Alert>
         {uploadedPicDataURL === "" ? (
           <p>please select an image to upload......</p>
         ) : (
@@ -109,7 +147,12 @@ const ImageModal: React.FC<{
         )}
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
-        <input type="file" onChange={uploadImageHandler}></input>
+        <input
+          ref={inputRef}
+          type="file"
+          onChange={uploadImageHandler}
+          accept="image/*"
+        ></input>
         <div>
           {uploadedPicDataURL && (
             <Button

@@ -5,31 +5,16 @@ import { ImMenu } from "react-icons/im";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { UserContext } from "../customContext/UserContextProvider";
-import { logoutUser } from "../customFunc/asyncRequests/authRequests";
 import { FiSettings } from "react-icons/fi";
 import DefaultProfileIcon from "./DefaultProfileIcon";
 
 const Navigator: React.FC<{}> = () => {
-  const { currentUser, dispatchCurrentUser } = useContext(UserContext);
+  const { currentUser, logoutHandler } = useContext(UserContext);
   const userExpanedRef = useRef<HTMLDivElement>(null);
   const [userExpanded, setUserExpanded] = useState<boolean>(false);
 
   const expandUser = () => {
     setUserExpanded(!userExpanded);
-  };
-
-  const logoutHandler = () => {
-    logoutUser()
-      .then((res) => {
-        if (res.status === 200) {
-          dispatchCurrentUser({ type: "LOG-OUT" });
-        } else {
-          throw new Error(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
   };
 
   useEffect(() => {

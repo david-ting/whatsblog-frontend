@@ -1,5 +1,5 @@
-import React, { createContext, useReducer, useEffect} from "react";
-import { getUser } from "../customFunc/asyncRequests/authRequests";
+import React, { createContext, useReducer, useEffect } from "react";
+import { getUser, logoutUser } from "../customFunc/asyncRequests/authRequests";
 
 type User =
   | {
@@ -56,16 +56,33 @@ const reducers = (state: User, action: Actions): User => {
   }
 };
 
-const initialState: User = {
-  loggedIn: false,
-};
+const loggedIn = localStorage.getItem("loggedIn");
+const name = localStorage.getItem("name");
+const email = localStorage.getItem("email");
+const profile_url = localStorage.getItem("profile_url");
+
+const initialState: User =
+  loggedIn === "true" && name !== null && email !== null && profile_url !== null
+    ? {
+        loggedIn: true,
+        name,
+        email,
+        profile_url,
+      }
+    : {
+        loggedIn: false,
+      };
 
 export const UserContext = createContext<{
   currentUser: User;
   dispatchCurrentUser: React.Dispatch<Actions>;
+  logoutHandler: () => void;
 }>({
   currentUser: initialState,
   dispatchCurrentUser: () => {
+    return;
+  },
+  logoutHandler: () => {
     return;
   },
 });
@@ -73,25 +90,57 @@ export const UserContext = createContext<{
 const UserContextProvider: React.FC<{}> = ({ children }) => {
   const [currentUser, dispatchCurrentUser] = useReducer(reducers, initialState);
 
+  const logoutHandler = () => {
+    dispatchCurrentUser({ type: "LOG-OUT" });
+    localStorage.clear();
+
+    logoutUser()
+      .then((res) => {
+        if (res.status !== 200) {
+          throw new Error(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   useEffect(() => {
+    const loggedIn = localStorage.getItem("loggedIn");
+
+    if (loggedIn !== "true") return;
+
     getUser()
       .then((res) => {
         if (res.status === 200) {
-          dispatchCurrentUser({
-            type: "LOG-IN",
-            payload: {
-              name: res.data.name,
-              email: res.data.email,
-              profile_url: res.data.profile_url,
-            },
-          });
+          const name = localStorage.getItem("name");
+          const email = localStorage.getItem("email");
+          const profile_url = localStorage.getItem("profile_url");
+
+          if (
+            name !== res.data.name ||
+            email !== res.data.email ||
+            profile_url !== res.data.profile_url
+          ) {
+            console.log("something went wrong. please relogin");
+            logoutHandler();
+          }
+        } else {
+          console.log("session expired. please relogin");
+          logoutHandler();
         }
       })
-      .catch((_err) => {});
+      .catch((err) => {
+        console.log(err);
+        console.log("something went wrong. please relogin");
+        logoutHandler();
+      });
   }, [dispatchCurrentUser]);
 
   return (
-    <UserContext.Provider value={{ currentUser, dispatchCurrentUser }}>
+    <UserContext.Provider
+      value={{ currentUser, dispatchCurrentUser, logoutHandler }}
+    >
       {children}
     </UserContext.Provider>
   );
