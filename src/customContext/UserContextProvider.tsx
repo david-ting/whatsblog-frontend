@@ -67,7 +67,7 @@ const initialState: User =
         loggedIn: true,
         name,
         email,
-        profile_url,
+        profile_url: profile_url === "null" ? null : profile_url,
       }
     : {
         loggedIn: false,
@@ -120,19 +120,22 @@ const UserContextProvider: React.FC<{}> = ({ children }) => {
           if (
             name !== res.data.name ||
             email !== res.data.email ||
-            profile_url !== res.data.profile_url
+            !(
+              profile_url === res.data.profile_url ||
+              (profile_url === "null" && res.data.profile_url === null)
+            )
           ) {
-            console.log("something went wrong. please relogin");
+            //"something went wrong. please relogin"
             logoutHandler();
           }
         } else {
-          console.log("session expired. please relogin");
+          //"session expired. please relogin"
           logoutHandler();
         }
       })
       .catch((err) => {
-        console.log(err);
-        console.log("something went wrong. please relogin");
+        console.error(err);
+        //"something went wrong. please relogin"
         logoutHandler();
       });
   }, [dispatchCurrentUser]);

@@ -7,7 +7,7 @@ const PasswordRequirements: React.FC<{
   passwordRules: boolean[];
 }> = ({ password, passwordRules }) => {
   return (
-    <IconContext.Provider value={{ color: "green", size: "1.1rem" }}>
+    <IconContext.Provider value={{ color: "green", size: "17.6px" }}>
       <i style={{ fontSize: "15px", color: "gray" }}>
         Requirements:
         <br></br>

@@ -108,7 +108,7 @@ const PostPage: React.FC<{}> = () => {
               }}
             >
               <FaRegComment
-                size={"1.2rem"}
+                size={"19.2px"}
                 fill={"gray"}
                 className="mr-1 mb-1"
               />

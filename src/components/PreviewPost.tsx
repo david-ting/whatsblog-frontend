@@ -64,7 +64,7 @@ const PreviewPost: React.FC<{
             post_id={post.post_id}
           />
 
-          <FaRegComment size={"1.2rem"} fill={"gray"} />
+          <FaRegComment size={"19.2px"} fill={"gray"} />
           <span className="ml-1">{commentCounts}</span>
         </div>
       </div>
@@ -74,7 +74,7 @@ const PreviewPost: React.FC<{
           <img alt="post_header" src={post.header_image_url}></img>
         ) : (
           <div className="preview-post-default-post-icon">
-            <RiArticleLine size={"2.5rem"} style={{ fill: "white" }} />
+            <RiArticleLine size={"40px"} style={{ fill: "white" }} />
           </div>
         )}
       </div>

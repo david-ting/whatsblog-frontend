@@ -37,7 +37,7 @@ const Navigator: React.FC<{}> = () => {
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav">
-          <IconContext.Provider value={{ color: "white", size: "1.4rem" }}>
+          <IconContext.Provider value={{ color: "white", size: "22.4px" }}>
             <ImMenu />
           </IconContext.Provider>
         </Navbar.Toggle>
@@ -108,7 +108,7 @@ const Navigator: React.FC<{}> = () => {
                     <div>
                       <Link to="/user/setting">
                         <IconContext.Provider
-                          value={{ size: "1.2rem", color: "rgb(54, 89, 166)" }}
+                          value={{ size: "19.2px", color: "rgb(54, 89, 166)" }}
                         >
                           <FiSettings />
                         </IconContext.Provider>

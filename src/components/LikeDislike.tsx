@@ -41,7 +41,7 @@ const LikeDislike: React.FC<{
       {" "}
       <AiFillLike
         style={{ cursor: "pointer" }}
-        size={"1.2rem"}
+        size={"19.2px"}
         fill={currentUser.loggedIn && currentIsLike ? "green" : "gray"}
         onClick={
           currentUser.loggedIn && currentIsLike === null
@@ -52,7 +52,7 @@ const LikeDislike: React.FC<{
       <span className="mr-2">{likeCounts}</span>
       <AiFillDislike
         style={{ cursor: "pointer" }}
-        size={"1.2rem"}
+        size={"19.2px"}
         fill={currentUser.loggedIn && currentIsLike === false ? "red" : "gray"}
         onClick={
           currentUser.loggedIn && currentIsLike === null
