@@ -8,3 +8,6 @@ The backend requests are served by the [**whatsblog-backend**](https://github.co
 ### Setup
 ReactJS has been used to create the frontend app. The use [**Intersection Observer API**](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) allows the website to have the infinite scrolling feature.
 * [**React-Quill**](https://www.npmjs.com/package/react-quill) has been used for users to submit rich text posts or comments.
+
+#### Environmental variable
+REACT_APP_HOST_URL has to be included in the .env file for requests to the backend. 
