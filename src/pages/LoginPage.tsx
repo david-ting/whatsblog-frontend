@@ -1,4 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
+import rocketSVG from "../image/rocket.svg";
+import waveSVG from "../image/wave.svg";
+import userSVG from "../image/user.svg";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -63,76 +66,87 @@ const LoginPage: React.FC<{}> = () => {
   }, []);
 
   return (
-    <section id="login-form">
-      <div>
-        <h3>
-          LOGIN{" "}
-          {showSpinner && <Spinner animation="border" variant="primary" />}
-        </h3>
-        <Alert
-          show={showAlert.show}
-          variant={showAlert.variant}
-          onClose={() => dispatchShowAlert({ type: "HIDE" })}
-          dismissible
-        >
-          {showAlert.content}
-        </Alert>
-
-        <Form onSubmit={submitHandler}>
-          <ButtonGroup>
-            <Button
-              className={key === "email" ? "themeColor-btn" : "btn-secondary"}
-              onClick={() => changeKey("email")}
+    <>
+      <img className="wave" src={waveSVG} alt="wave"></img>
+      <section id="login-form">
+        <div>
+          <img src={rocketSVG} alt="rocket"></img>
+        </div>
+        <div>
+          <div>
+            <h3>
+              LOGIN{" "}
+              {showSpinner && <Spinner animation="border" variant="primary" />}
+              <img src={userSVG} className="user-svg" alt="user"></img>
+            </h3>
+            <Alert
+              show={showAlert.show}
+              variant={showAlert.variant}
+              onClose={() => dispatchShowAlert({ type: "HIDE" })}
+              dismissible
             >
-              Email
-            </Button>
-            <Button
-              className={key === "name" ? "themeColor-btn" : "btn-secondary"}
-              onClick={() => changeKey("name")}
-            >
-              Name
-            </Button>
-          </ButtonGroup>
+              {showAlert.content}
+            </Alert>
 
-          <Form.Group>
-            <Form.Label>
-              {key === "email" ? "Email address" : "User name"}
-            </Form.Label>
-            <Form.Control
-              type={key}
-              placeholder={`Enter ${key}`}
-              value={identity}
-              onChange={(event) => {
-                setIdentity(event.target.value);
-              }}
-              required
-            />
-          </Form.Group>
+            <Form onSubmit={submitHandler}>
+              <ButtonGroup className="mb-2">
+                <Button
+                  className={
+                    key === "email" ? "themeColor-btn" : "btn-secondary"
+                  }
+                  onClick={() => changeKey("email")}
+                >
+                  Email
+                </Button>
+                <Button
+                  className={
+                    key === "name" ? "themeColor-btn" : "btn-secondary"
+                  }
+                  onClick={() => changeKey("name")}
+                >
+                  Name
+                </Button>
+              </ButtonGroup>
 
-          <Form.Group>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-              required
-            />
-          </Form.Group>
+              <Form.Group>
+                <Form.Label>
+                  {key === "email" ? "Email address" : "Username"}
+                </Form.Label>
+                <Form.Control
+                  type={key}
+                  value={identity}
+                  onChange={(event) => {
+                    setIdentity(event.target.value);
+                  }}
+                  required
+                />
+              </Form.Group>
 
-          <Form.Group className="mt-4">
-            <Button className="themeColor-btn" type="submit">
-              Login
-            </Button>
-            <Link to="/sign-up" className="ml-2" style={{ color: "gray" }}>
-              <i>or sign up</i>
-            </Link>
-          </Form.Group>
-        </Form>
-      </div>
-    </section>
+              <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group className="mt-4">
+                <Button className="themeColor-btn" type="submit">
+                  Login
+                </Button>
+                <Link to="/sign-up" className="ml-2" style={{ color: "gray" }}>
+                  <i>or sign up</i>
+                </Link>
+              </Form.Group>
+            </Form>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

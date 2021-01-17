@@ -14,6 +14,7 @@ $media-breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
 @import "./userSetting";
 @import "./userProfile";
 @import "./comment";
+@import "./jaggedBorder";
 
 * {
   box-sizing: border-box;
@@ -104,7 +105,6 @@ $media-breakpoint-md: 768px; // Medium devices (tablets, 768px and up)
 
 #prompt {
   text-align: center;
-  background-color: $paleBlue;
   margin: 16px 0;
   padding: 5px;
 }

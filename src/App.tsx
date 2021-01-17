@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-quill/dist/quill.snow.css";
-import "./styling/index.css";
+import "./styling/index.scss";
 import {
   BrowserRouter as Router,
   Switch,

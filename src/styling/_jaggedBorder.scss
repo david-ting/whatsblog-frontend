@@ -1,0 +1,80 @@
+.jagged-border-container {
+  --color: rgb(153, 175, 224);
+  --sizeX: 15px;
+  --sizeY: 15px;
+  position: relative;
+  background-color: white;
+  margin: calc(var(--size) / 2);
+  background-image: radial-gradient(white 20%, var(--color));
+}
+
+.jagged-border-container::after,
+.jagged-border-container::before,
+.jagged-border-left,
+.jagged-border-right {
+  position: absolute;
+}
+
+.jagged-border-container::after,
+.jagged-border-container::before {
+  content: "";
+  display: block;
+  height: calc(var(--sizeX) / 2);
+  width: 100%;
+  background-repeat: repeat-x;
+  left: 0;
+  background-size: var(--sizeX) var(--sizeX);
+}
+
+.jagged-border-left,
+.jagged-border-right {
+  height: 100%;
+  width: calc(var(--sizeY) / 2);
+  top: 0px;
+  background-repeat: repeat-y;
+  background-size: var(--sizeY) var(--sizeY);
+}
+
+.jagged-border-container::after {
+  top: calc(-1 * var(--sizeX) / 2);
+  background-image: linear-gradient(
+      -45deg,
+      var(--color) 0 50%,
+      transparent 50% 100%
+    ),
+    linear-gradient(45deg, var(--color) 0% 50%, transparent 50% 100%);
+  background-position: calc(var(--sizeX) / 2) 0;
+}
+
+.jagged-border-container::before {
+  bottom: calc(-1 * var(--sizeX) / 2);
+  background-image: linear-gradient(
+      -45deg,
+      transparent 0 50%,
+      var(--color) 50% 100%
+    ),
+    linear-gradient(45deg, transparent 0% 50%, var(--color) 50% 100%);
+  background-position: calc(-1 * var(--sizeX) / 2) calc(-1 * var(--sizeX) / 2);
+}
+
+.jagged-border-left {
+  left: calc(-1 * var(--sizeY) / 2);
+  background-image: linear-gradient(
+      -45deg,
+      var(--color) 0 50%,
+      transparent 50% 100%
+    ),
+    linear-gradient(45deg, transparent 0% 50%, var(--color) 50% 100%);
+  background-position: 0 calc(-1 * var(--sizeY) / 2);
+}
+
+.jagged-border-right {
+  right: calc(-1 * var(--sizeY) / 2);
+  background-image: linear-gradient(
+      -45deg,
+      transparent 0 50%,
+      var(--color) 50% 100%
+    ),
+    linear-gradient(45deg, var(--color) 0% 50%, transparent 50% 100%);
+  background-position: calc(-1 * var(--sizeY) / 2) calc(-1 * var(--sizeY) / 2);
+}

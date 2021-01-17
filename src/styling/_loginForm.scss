@@ -1,19 +1,59 @@
+.wave {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  @media (max-height: 500px) {
+    display: none;
+  }
+}
+
 #login-form {
   background-color: $paleBlue;
   min-height: calc(100vh - 55px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  > div:first-child {
-    width: 400px;
-    max-width: 100vw;
-    background-color: white;
-    padding: 40px 20px;
-    border-radius: 10px;
-    h3 {
-      color: $themeBlue;
-      text-align: center;
-      margin: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2.5vw 2vh;
+  z-index: 0;
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+
+  > div:nth-child(1) {
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 65%;
+    }
+    @media (max-width: 800px) {
+      display: none;
+    }
+  }
+
+  > div:nth-child(2) {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media (max-width: 800px) {
+      align-items: center;
+    }
+    > div {
+      width: 70%;
+      h3 {
+        color: $themeBlue;
+        text-align: center;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .user-svg {
+      width: 120px;
+      padding: 10px;
     }
   }
 }

@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import wave2SVG from "../image/wave2.svg";
 import { signUpUser } from "../customFunc/asyncRequests/authRequests";
 import useAlert from "../customHook/useAlert";
 import {
@@ -89,147 +90,146 @@ const SignUpPage: React.FC<{}> = () => {
   }, []);
 
   return (
-    <section id="sign-up-form">
-      <Container className="pt-3 overlay-spinner-wrapper">
-        <h3>SIGN UP</h3>
-        {showSpinner && (
-          <div className="spinner spinner-large">
-            <Spinner animation="border" variant="primary" />
-          </div>
-        )}
-        <Alert
-          show={showAlert.show}
-          variant={showAlert.variant}
-          onClose={() => dispatchShowAlert({ type: "HIDE" })}
-          dismissible
-        >
-          {showAlert.content}
-        </Alert>
-        <Form onSubmit={submitHandler}>
-          <Form.Row>
-            <Col>
-              <FormGroup>
-                <FormLabel>Name</FormLabel>
-                <FormControl
-                  type="name"
-                  placeholder="Enter name"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                  required
-                ></FormControl>
-              </FormGroup>
-            </Col>
-            <Col>
-              <FormGroup>
-                <FormLabel>Profile Picture</FormLabel>
-                <div id="sign-up-form-profile-pic-wrapper">
-                  {croppedPicDataURL.length > 0 ? (
-                    <img src={croppedPicDataURL} alt="uploaded profile"></img>
-                  ) : (
-                    <img
-                      src="https://res.cloudinary.com/dmskcaysu/image/upload/v1605941797/user_icons/default_lopyxz.png"
-                      alt="default profile"
-                    ></img>
-                  )}
-                </div>
-                <div className="mt-2">
-                  <Button
-                    className="themeColor-btn"
-                    onClick={() => setShowImageModal(true)}
-                  >
-                    {croppedPicDataURL.length > 0
-                      ? "Modify / Upload"
-                      : "Upload"}
-                  </Button>
-                  {croppedPicDataURL.length > 0 && (
+    <>
+      <img className="wave2" src={wave2SVG} alt="wave"></img>
+      <section id="sign-up-form">
+        <Container className="pt-3 overlay-spinner-wrapper">
+          <h3>SIGN UP</h3>
+          {showSpinner && (
+            <div className="spinner spinner-large">
+              <Spinner animation="border" variant="primary" />
+            </div>
+          )}
+          <Alert
+            show={showAlert.show}
+            variant={showAlert.variant}
+            onClose={() => dispatchShowAlert({ type: "HIDE" })}
+            dismissible
+          >
+            {showAlert.content}
+          </Alert>
+          <Form onSubmit={submitHandler}>
+            <Form.Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl
+                    type="name"
+                    value={name}
+                    onChange={(event) => {
+                      setName(event.target.value);
+                    }}
+                    required
+                  ></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Profile Picture</FormLabel>
+                  <div id="sign-up-form-profile-pic-wrapper">
+                    {croppedPicDataURL.length > 0 ? (
+                      <img src={croppedPicDataURL} alt="uploaded profile"></img>
+                    ) : (
+                      <img
+                        src="https://res.cloudinary.com/dmskcaysu/image/upload/v1605941797/user_icons/default_lopyxz.png"
+                        alt="default profile"
+                      ></img>
+                    )}
+                  </div>
+                  <div className="mt-2">
                     <Button
-                      variant="secondary"
-                      onClick={() => {
-                        setCroppedPicDataURL("");
-                      }}
+                      className="themeColor-btn"
+                      onClick={() => setShowImageModal(true)}
                     >
-                      Default
+                      {croppedPicDataURL.length > 0
+                        ? "Modify / Upload"
+                        : "Upload"}
                     </Button>
-                  )}
-                </div>
-                <ImageModal
-                  show={showImageModal}
-                  setShow={setShowImageModal}
-                  setCroppedPicDataURL={setCroppedPicDataURL}
-                  initialCrop={{
-                    unit: "px",
-                    width: 100,
-                    aspect: 1 / 1,
-                  }}
-                  canvasWrapperClass="canvas-profile-icon-wrapper"
-                />
-              </FormGroup>
-            </Col>
-          </Form.Row>
-          <FormGroup>
-            <FormLabel>Email Address</FormLabel>
-            <FormControl
-              type="email"
-              placeholder="Enter email address"
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
-              required
-            ></FormControl>
-          </FormGroup>
+                    {croppedPicDataURL.length > 0 && (
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          setCroppedPicDataURL("");
+                        }}
+                      >
+                        Default
+                      </Button>
+                    )}
+                  </div>
+                  <ImageModal
+                    show={showImageModal}
+                    setShow={setShowImageModal}
+                    setCroppedPicDataURL={setCroppedPicDataURL}
+                    initialCrop={{
+                      unit: "px",
+                      width: 100,
+                      aspect: 1 / 1,
+                    }}
+                    canvasWrapperClass="canvas-profile-icon-wrapper"
+                  />
+                </FormGroup>
+              </Col>
+            </Form.Row>
+            <FormGroup>
+              <FormLabel>Email Address</FormLabel>
+              <FormControl
+                type="email"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
+                required
+              ></FormControl>
+            </FormGroup>
 
-          <Form.Row>
-            <Col className="d-flex flex-column justify-content-end">
-              <FormGroup className="mb-0">
-                <FormLabel>Password</FormLabel>
-                <FormControl
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                  }}
-                  required
-                  autoComplete="off"
-                ></FormControl>
-              </FormGroup>
-            </Col>
-            <Col>
-              <FormGroup className="mb-0">
-                <FormLabel>Confirm password</FormLabel>
-                <FormControl
-                  type="password"
-                  placeholder="Confirm password"
-                  value={confirmPassword}
-                  onChange={(event) => {
-                    setConfirmPassword(event.target.value);
-                  }}
-                  required
-                  autoComplete="off"
-                ></FormControl>
-              </FormGroup>
-            </Col>
-            <Col xs={12} className="mt-2">
-              <PasswordRequirements
-                password={password}
-                passwordRules={passwordRules}
-              />
-            </Col>
-          </Form.Row>
-          <Form.Group className="mt-4 d-flex align-items-center">
-            <Button className="mt-2 themeColor-btn" type="submit">
-              Sign up
-            </Button>
-            <Link to="/log-in" className="ml-2" style={{ color: "gray" }}>
-              <i>or login</i>
-            </Link>
-          </Form.Group>
-        </Form>
-      </Container>
-    </section>
+            <Form.Row>
+              <Col className="d-flex flex-column justify-content-end">
+                <FormGroup className="mb-0">
+                  <FormLabel>Password</FormLabel>
+                  <FormControl
+                    type="password"
+                    value={password}
+                    onChange={(event) => {
+                      setPassword(event.target.value);
+                    }}
+                    required
+                    autoComplete="off"
+                  ></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup className="mb-0">
+                  <FormLabel>Confirm password</FormLabel>
+                  <FormControl
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(event) => {
+                      setConfirmPassword(event.target.value);
+                    }}
+                    required
+                    autoComplete="off"
+                  ></FormControl>
+                </FormGroup>
+              </Col>
+              <Col xs={12} className="mt-2">
+                <PasswordRequirements
+                  password={password}
+                  passwordRules={passwordRules}
+                />
+              </Col>
+            </Form.Row>
+            <Form.Group className="mt-4 d-flex align-items-center">
+              <Button className="mt-2 themeColor-btn" type="submit">
+                Sign up
+              </Button>
+              <Link to="/log-in" className="ml-2" style={{ color: "gray" }}>
+                <i>or login</i>
+              </Link>
+            </Form.Group>
+          </Form>
+        </Container>
+      </section>
+    </>
   );
 };
 
